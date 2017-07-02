@@ -1,9 +1,15 @@
 import React from 'react'
 import { Table, Icon } from 'antd'
+import { connect } from 'dva'
 
-export default function UsersComponent({dataSource}) {
-
-
+function UsersComponent({dispatch, list}) {
+function handleDelete(id){
+  dispatch({
+    type: 'users/removes',
+    payload: id,
+  })
+  // console.log("传过来的id", id)
+}
 const columns = [{
   title: 'id',
   dataIndex: 'id',
@@ -27,15 +33,16 @@ const columns = [{
     <span>
       <a href="#">Action 一 {record.name}</a>
       <span className="ant-divider" />
-      <a href="#">Delete</a>
+      <a  onClick={handleDelete.bind(null, record.id)}>Delete</a>
       <span className="ant-divider" />
-      <a href="#" className="ant-dropdown-link">
+      <a  className="ant-dropdown-link">
         Edit <Icon type="down" />
       </a>
     </span>
   ),
 }];
   return(
-    <Table dataSource={dataSource} columns={columns} />
+    <Table dataSource={list} columns={columns} />
   )
 }
+export default connect()(UsersComponent); 

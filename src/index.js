@@ -6,6 +6,10 @@ import './index.html'
 const app = dva({
   // history: browserHistory
 })
+//这里 在数据model准备好后  通过dva来  注册model
+app.model(require('./models/users.js'))
+
+
 
 app.router(require('./router'))
 
